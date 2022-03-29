@@ -6,15 +6,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-const (
-	username = "andrea"
-	password = "password"
-	hostname = "127.0.0.1:3306"
+var (
+	username = os.Getenv("DB_USERNAME")
+	password = os.Getenv("DB_PASSWORD")
+	hostname = os.Getenv("DB_HOST") + ":3306"
 	dbname   = "phonebook"
 )
 

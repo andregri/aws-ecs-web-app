@@ -1,8 +1,8 @@
 build-docker:
-	docker build -t andregri/phonebook:1.0 backend/
+	docker build -t andregri/phonebook:$(TAG) backend/
 
 run-docker:
-	docker run --rm --network host andregri/phonebook:1.0
+	docker run --rm --network host --env-file .env andregri/phonebook:$(TAG)
 
 push-docker:
-	docker push andregri/phonebook:1.0
+	docker push andregri/phonebook:$(TAG)

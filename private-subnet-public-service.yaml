@@ -80,6 +80,25 @@ Resources:
           Image: !Ref 'ImageUrl'
           PortMappings:
             - ContainerPort: !Ref 'ContainerPort'
+          Environment:
+            - Name: DB_USERNAME
+              Value: 'andrea'
+            - Name: DB_PASSWORD
+              Value: 'YqEtkTp3kxx62a7'
+            - Name: DB_HOST
+              Value: 'http://mydbinstance.cn5g21wpz8ba.eu-west-1.rds.amazonaws.com'
+          LogConfiguration:
+            LogDriver: 'awslogs'
+            Options:
+              awslogs-group: !Ref CloudWatchLogsGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: 'phonebook'
+
+  CloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Ref AWS::StackName
+      RetentionInDays: 14
 
   # The service. The service is a resource which allows you to run multiple
   # copies of a type of task, and gather up their logs and metrics, as well
