@@ -21,6 +21,10 @@ var (
 
 var db *sql.DB
 
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Index")
+}
+
 func userHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -55,6 +59,10 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
+}
+
+func versionHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Version 1.0")
 }
 
 func dsn(dbName string) string {
@@ -140,6 +148,8 @@ func main() {
 
 	log.Printf("Connected to DB %s successfully\n", dbname)
 
+	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/user", userHandler)
+	http.HandleFunc("/version", versionHandler)
 	http.ListenAndServe(":9000", nil)
 }

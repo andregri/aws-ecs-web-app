@@ -86,7 +86,7 @@ Resources:
             - Name: DB_PASSWORD
               Value: 'YqEtkTp3kxx62a7'
             - Name: DB_HOST
-              Value: 'http://mydbinstance.cn5g21wpz8ba.eu-west-1.rds.amazonaws.com'
+              Value: 'mydbinstance.cn5g21wpz8ba.eu-west-1.rds.amazonaws.com'
           LogConfiguration:
             LogDriver: 'awslogs'
             Options:
