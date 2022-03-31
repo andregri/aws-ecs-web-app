@@ -77,7 +77,7 @@ Resources:
     Type: 'AWS::RDS::DBInstance'
     DependsOn:
     - DbSubnetGroup
-    - RDSAccessSecurityGroup
+    - DBSecurityGroup
     Properties:
       DBSubnetGroupName: !Ref DbSubnetGroup
       DBInstanceIdentifier: !Ref DBInstanceID
