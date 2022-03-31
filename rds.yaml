@@ -59,26 +59,6 @@ Parameters:
     ConstraintDescription: must contain only alphanumeric characters.
     
 Resources:
-  RDSAccessSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Instance to RDS Access
-      VpcId:
-        Fn::ImportValue:
-          !Join [':', [!Ref 'StackName', 'VPCId']]
-        
-  AccessSecurityGroupIngress:
-    Type: AWS::EC2::SecurityGroupIngress
-    DependsOn: RDSAccessSecurityGroup
-    Properties:
-      GroupId:
-        Ref: RDSAccessSecurityGroup
-      IpProtocol: tcp
-      FromPort: 3306
-      ToPort: 3306
-      SourceSecurityGroupId:
-        Ref: RDSAccessSecurityGroup
-
   DbSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
@@ -111,7 +91,17 @@ Resources:
       PubliclyAccessible: 'false'
       Port: 3306
       VPCSecurityGroups:
-      - Ref: RDSAccessSecurityGroup
+        - !GetAtt DBSecurityGroup.GroupId
+
+  DBSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Allow mysql inbound traffic
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 0.0.0.0/0
 
 Outputs:
   RDSHostname:
